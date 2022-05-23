@@ -1,0 +1,6 @@
+indexes:
+- kind: visit
+  ancestor: yes
+  properties:
+  - name: email
+    direction: desc

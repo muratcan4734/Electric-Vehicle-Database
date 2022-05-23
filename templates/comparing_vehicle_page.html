@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <div class="container">
+        <div>
+            <h1>Compare Vehicles</h1><br><br>
+        </div>
+        <div>
+            <table border="2" class="" ”center”>
+                <tr>
+                    <th>Name</th>
+                    <th>Manufacturer</th>
+                    <th>Year</th>
+                    <th>Battery Size</th>
+                    <th>WLTP Range</th>
+                    <th>Cost</th>
+                    <th>Power</th>
+
+                </tr>
+                {% for vehicle_object in vehicle_entities %}
+                <tr>
+                    <td>
+                        <a href="/get_vehicle_information/{{ vehicle_object.name }}{{ vehicle_object.manufacturer }}{{ vehicle_object.year }}">{{
+                            vehicle_object.name
+                            }}</a></td>
+
+
+                    <td>{{vehicle_object.manufacturer}}</td>
+
+                    {%if vehicle_attributes_comparisons['year_max'] == vehicle_object['year'] %}
+                    <td style="color:green">{{vehicle_object.year}}</td>
+                    {%elif vehicle_attributes_comparisons['year_min'] == vehicle_object['year'] %}
+                    <td style="color:red">{{vehicle_object.year}}</td>
+                    {%else%}
+                    <td>{{vehicle_object.year}}</td>
+                    {%endif%}
+
+
+                    {%if vehicle_attributes_comparisons['battery_max'] == vehicle_object['battery_size'] %}
+                    <td style="color:green">{{vehicle_object.battery_size}}</td>
+                    {%elif vehicle_attributes_comparisons['battery_min'] == vehicle_object['battery_size'] %}
+                    <td style="color:red">{{vehicle_object.battery_size}}</td>
+                    {%else%}
+                    <td>{{vehicle_object.battery_size}}</td>
+                    {%endif%}
+
+
+                    {%if vehicle_attributes_comparisons['wltp_max'] == vehicle_object['WLTP_range'] %}
+                    <td style="color:green">{{vehicle_object.WLTP_range}}</td>
+                    {%elif vehicle_attributes_comparisons['wltp_min'] == vehicle_object['WLTP_range'] %}
+                    <td style="color:red">{{vehicle_object.WLTP_range}}</td>
+                    {%else%}
+                    <td>{{vehicle_object.WLTP_range}}</td>
+                    {%endif%}
+
+
+                    {%if vehicle_attributes_comparisons['cost_max'] == vehicle_object['cost'] %}
+                    <td style="color:red">{{vehicle_object.cost}}</td>
+                    {%elif vehicle_attributes_comparisons['cost_min'] == vehicle_object['cost'] %}
+                    <td style="color:green">{{vehicle_object.cost}}</td>
+                    {%else%}
+                    <td>{{vehicle_object.cost}}</td>
+                    {%endif%}
+
+
+                    {%if vehicle_attributes_comparisons['power_max'] == vehicle_object['power'] %}
+                    <td style="color:green">{{vehicle_object.power}}</td>
+                    {%elif vehicle_attributes_comparisons['power_min'] == vehicle_object['power'] %}
+                    <td style="color:red">{{vehicle_object.power}}</td>
+                    {%else%}
+                    <td>{{vehicle_object.power}}</td>
+                    {%endif%}
+
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+
+</head>

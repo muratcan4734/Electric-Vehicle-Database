@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View View All Electronic Vehicle </title>
+    <link type="text/css" rel="stylesheet"
+          href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+    <script src="{{ url_for('static', filename='app-setup.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='view_all_vehicles.js') }}"></script>
+
+</head>
+<body>
+
+<div>
+    <h1>All Vehicles</h1>
+
+    <div class="list-group">
+        <form action="/compare_more_than_one_element" method="post">
+            {% for vehicle in vehicle_entities %}
+            <input type="checkbox" name="comparing_vehicles_checkboxes"
+                   value="{{ vehicle.name }}{{ vehicle.manufacturer }}{{ vehicle.year }}"
+                   onchange="comparing_checked_boxes()">
+            <a href="/get_vehicle_information/{{ vehicle.name }}{{ vehicle.manufacturer }}{{ vehicle.year }}">{{
+                vehicle.name
+                }}</a><br><br>
+            {% endfor %}
+            <br/>
+            <input type="submit" hidden="true" class="btn btn-primary" name="compare_evs" id="compare_button"
+                   value="Compare">
+        </form>
+    </div>
+</div>
+<h4>Please Double Click for get info of the EV</h4>
+</body>
+</html>

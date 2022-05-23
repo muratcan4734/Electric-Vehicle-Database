@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+<div id="information_page">
+    <h1>Information Page</h1>
+    <label>Name Of Vehicle : {{vehicle_object.name}}</label><br>
+    <label>Manufacturer Of Vehicle : {{vehicle_object.manufacturer}}</label><br>
+    <label>Year Of Vehicle : {{vehicle_object.year}}</label><br>
+    <label>Battery Size Of Vehicle : {{vehicle_object.battery_size}}</label><br>
+    <label>WLTP Range Of Vehicle : {{vehicle_object.WLTP_range}}</label><br>
+    <label>Cost Of Vehicle : {{vehicle_object.cost}}</label><br>
+    <label>Power Of Vehicle : {{vehicle_object.power}}</label><br><br>
+    <button type="button" value="Update" onclick="show_edit_div()">Update</button>
+
+</div>
+<div id="edit_page" hidden="true">
+    <h1>Information Page</h1>
+
+    <form action="/update_vehicle_information/{{vehicle_object.name}}{{vehicle_object.manufacturer}}{{vehicle_object.year}}"
+          method="post">
+
+        <label>Name Of Vehicle : {{vehicle_object.name}}</label><br>
+        <input hidden="true" name="vehicle_name"
+               value="{{vehicle_object.name}}"><br><br>
+
+        <label>Manufacturer Of Vehicle : {{vehicle_object.manufacturer}}</label><br>
+        <input hidden="true" name="vehicle_manufacture"
+               value="{{vehicle_object.manufacturer}}"><br><br>
+
+        <label>Year Of Vehicle : {{vehicle_object.year}}</label><br>
+        <input hidden="true" name="vehicle_year"
+               value="{{vehicle_object.year}}"><br><br>
+
+        <label>Battery Size Of Vehicle : </label>
+        <label for="vehicle_battery_size">Enter Vehicle Battery Size(Kwh):</label><br>
+        <input type="number" required class="form-control" min="0" name="vehicle_battery_size"
+               id="vehicle_battery_size" value="{{vehicle_object.battery_size}}"><br><br>
+
+        <label for="vehicle_wltp_range">Enter Vehicle WLTP Range(Km):</label><br>
+        <input type="number" required class="form-control" min="0" name="vehicle_wltp_range"
+               id="vehicle_wltp_range" value="{{vehicle_object.WLTP_range}}"><br><br>
+
+        <label for="vehicle_cost">Enter Vehicle Cost:</label><br>
+        <span>€</span>
+        <input type="number" required class="form-control" value="{{vehicle_object.cost}}" min="0" step="0.01"
+               name="vehicle_cost"
+               id="vehicle_cost"><br><br>
+
+        <label for="vehicle_power">Enter Vehicle Power(Km):</label><br>
+        <input type="number" required class="form-control" min="0" name="vehicle_power"
+               id="vehicle_power" value="{{vehicle_object.power}}"><br><br><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+<div>
+    <form action="/delete_vehicle_information/{{vehicle_object.name}}{{vehicle_object.manufacturer}}{{vehicle_object.year}}">
+        <input type="submit" value="Delete"/>
+    </form>
+</div>
+
+</body>
+<script src="{{ url_for('static', filename='show_information.js') }}">
+</script>
+</html>
